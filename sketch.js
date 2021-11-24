@@ -27,15 +27,11 @@ function preload()
 function setup() {
     createCanvas(800, 750);
 
-   //background
-    bg = addImage(bgImg);
-
-   //sound
-    sound = addSound(music);
-
    //fairy createSprite
-    fairy = createSprite(600,30);
-	fairy.addAnimation(fairyImg);
+    fairy = createSprite(120,500);
+	fairy.addAnimation("fada voando",fairyImg);
+    fairy.scale = 0.2;
+    //->lembrar de botar nome no addAnimation
 
    //star createSprite
     star = createSprite(650,30);
@@ -55,13 +51,33 @@ function setup() {
 ////////////////////////////////////////////////
 function draw(){
     
-    background(bg)
-    song.play();
+    background(bgImg)
+    music.play();
+
+    star.x = starBody.position.x;
+    star.y = starBody.position.y;
 
     if(star.y > 470 && starBody.position.y > 470){
         Matter.Body.setStatic(starBody,true);
-
     }
 
     drawSprites();
+    }
+
+    function keyPressed(){
+        if(keyCode === RIGHT_ARROW){
+            fairy.x = fairy.x + 20;
+        }
+
+        if(keyCode === LEFT_ARROW){
+            fairy.x = fairy.x - 20;
+        }
+
+        if(keyCode === UP_ARROW){
+            fairy.y = fairy.y - 20;
+        }
+        
+        if(keyCode === DOWN_ARROW){
+            Matter.Body.setStatic(starBody,false);
+        }
 }
